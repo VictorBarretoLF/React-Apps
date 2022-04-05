@@ -9,7 +9,12 @@ const getGoals = (request, response) => {
 // route POST /api/goals
 // @access Private
 const setGoal = (request, response) => {
-    response.status(200).json({message : "Set goal"})
+    if (!request.body.text) {
+        response.status(400)
+        throw new Error("Please add a text field")
+    }
+    console.log(request.body)
+    return response.status(200).json({message : "Set goal"})
 }
 
 // %desc Update goal
