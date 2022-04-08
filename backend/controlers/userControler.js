@@ -35,7 +35,7 @@ const registerUser = asyncHandler( async(request, response) => {
 
     // confirm if the user was created or not
     if (user) {
-        response.status(200).json({
+        response.status(201).json({
             _id : user.id,
             name : user.name,
             email : user.email,
@@ -47,14 +47,32 @@ const registerUser = asyncHandler( async(request, response) => {
 
     // console.log(hashedPassword)
     // console.log(name, email, password)
-    response.json({message : "Register User"})
+    // response.json({message : "Register User"})
 })
 
 // %desc Authenticate a user
 // route POST /api/users/login
 // @access Public
 const loginrUser = asyncHandler( async(request, response) => {
-    response.json({message : "Login User"})
+    
+    const {email, password} = request.body
+
+    // Check for user email
+    const user = await User.findOne({email})
+
+    const dbPassword = await bcrypt.compare(password, user.password)
+
+    if (user && dbPassword) {
+        response.json({
+            _id : user.id,
+            name : user.name,
+            email : user.email,
+        })
+    } else {
+        response.status(400)
+        throw new Error("Invalid credentials")
+    }
+    // response.json({message : "Login User"})
 })
 
 // %desc Get user data
