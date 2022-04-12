@@ -57,6 +57,11 @@ const loginrUser = asyncHandler( async(request, response) => {
     
     const {email, password} = request.body
 
+    if ( !email || !password){
+        response.status(400)
+        throw new Error("Please add all fields")
+    }
+
     // Check for user email
     const user = await User.findOne({email})
 
