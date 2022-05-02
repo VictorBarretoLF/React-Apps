@@ -72,6 +72,20 @@ const deleteGoal = asyncHandler(async (request, response) => {
         throw new Error("Goal not found")
     }
 
+    const user = await User.findById(request.user.id)
+
+    // Check for user
+    if (!user){
+        response.status(401)
+        throw new Error('User not found')
+    }
+
+    // Make sure the logged in user matches the goal user
+    if (goal.user.toString() !== user.id){
+        response.status(401)
+        throw new Error('User not authorized')
+    }
+
     await Goal.findByIdAndDelete(request.params.id)
 
     response.status(200).json({ id : request.params.id})
