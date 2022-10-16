@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/goalMERN');
+        const conn = await mongoose.connect(process.env.MONGO_URI);
 
-        console.log("Connected to mongoDB database".cyan.underline)
+        console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline)
     } catch (error) {
         console.log("Error")
         process.exit(1)
