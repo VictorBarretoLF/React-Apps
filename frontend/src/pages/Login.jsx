@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaSignInAlt } from 'react-icons/fa'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 const Login = (props) => {
     

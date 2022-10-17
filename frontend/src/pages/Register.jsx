@@ -1,6 +1,12 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
+import { register, reset } from "../features/auth/authSlice";
+import { useEffect } from "react";
+import Spinner from "../components/Spinner";
 
 const defaultForm = {
   name: "",
@@ -14,6 +20,25 @@ const Register = (props) => {
 
   const { name, email, password, password2 } = formData;
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess || user) {
+      navigate("/");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, dispatch, navigate]);
+
   const onChange = (event) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -23,9 +48,23 @@ const Register = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    // aqui vc faz a requisião chamando uma função
-    // e depois você chama o setFormData(defaultForm) pra resetar os dados do formulario
+
+    if (password !== password2) {
+      toast.error("Password do not match");
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+      };
+
+      dispatch(register(userData));
+    }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <Fragment>
@@ -91,6 +130,6 @@ const Register = (props) => {
       </section>
     </Fragment>
   );
-}
+};
 
 export default Register;
