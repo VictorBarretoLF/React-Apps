@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import {
