@@ -54,7 +54,7 @@ const registerUser = asyncHandler( async(request, response) => {
 // %desc Authenticate a user
 // route POST /api/users/login
 // @access Public
-const loginrUser = asyncHandler( async(request, response) => {
+const loginUser = asyncHandler( async(request, response) => {
     
     const {email, password} = request.body
 
@@ -104,6 +104,6 @@ const generateToken = (id) => {
 
 module.exports = {
     registerUser,
-    loginrUser,
+    loginUser,
     getMe,
 }
