@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
@@ -17,13 +17,13 @@ import Header from "./components/Header";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <>
+    <Fragment>
       <Route path="/" element={<Header />}>
         <Route index element={<Dashboard />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
       </Route>
-    </>
+    </Fragment>
   )
 );
 
