@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import GoalForm from "../components/GoalForm";
 
 function Dashboard(props) {
   const navigate = useNavigate();
@@ -8,15 +9,19 @@ function Dashboard(props) {
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if(!user) {
-        navigate('/login')
+    if (!user) {
+      navigate("/login");
     }
-  }, [user, navigate])
+  }, [user, navigate]);
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
+    <Fragment>
+      <section className="heading">
+        <h1>Welcome {user && user.username}</h1>
+        <p>Goals Dashboard</p>
+      </section>
+      <GoalForm />
+    </Fragment>
   );
 }
 
