@@ -1,99 +1,97 @@
-const asyncHandler = require("express-async-handler")
+const asyncHandler = require("express-async-handler");
 
-const User = require('../model/userModel')
-const Goal = require('../model/goalsModel')
+const User = require("../model/userModel");
+const Goal = require("../model/goalsModel");
 
 // %desc Get goals
 // route GET /api/goals
 // @access Private
 const getGoals = asyncHandler(async (request, response) => {
-    const goals = await Goal.find({ user : request.user.id })
+  const goals = await Goal.find({ user: request.user.id });
 
-    response.status(200).json(goals)
-})
+  response.status(200).json(goals);
+});
 
 // %desc Set goal
 // route POST /api/goals
 // @access Private
 const setGoal = asyncHandler(async (request, response) => {
-    if (!request.body.text) {
-        response.status(400)
-        throw new Error("Please add a text field")
-    }
-    
-    const goal = await Goal.create({
-        text : request.body.text,
-        user : request.user.id
-    })
+  if (!request.body.text) {
+    response.status(400);
+    throw new Error("Please add a text field");
+  }
 
-    return response.status(200).json(goal)
-})
+  const goal = await Goal.create({
+    text: request.body.text,
+    user: request.user.id,
+  });
+
+  return response.status(200).json(goal);
+});
 
 // %desc Update goal
 // route PUT /api/goals/:id
 // @access Private
 const updateGoal = asyncHandler(async (request, response) => {
+  const goal = await Goal.findById(request.params.id);
 
-    const goal = await Goal.findById(request.params.id)
+  if (!goal) {
+    response.status(400);
+    throw new Error("Goal not found");
+  }
 
-    if (!goal){
-        response.status(400)
-        throw new Error("Goal not found")
-    }
+  // Check for user
+  if (!request.user) {
+    response.status(401);
+    throw new Error("User not found");
+  }
 
-    const user = await User.findById(request.user.id)
+  // Make sure the logged in user matches the goal user
+  if (goal.user.toString() !== request.user.id) {
+    response.status(401);
+    throw new Error("User not authorized");
+  }
 
-    // Check for user
-    if (!user){
-        response.status(401)
-        throw new Error('User not found')
-    }
+  const updatedGoal = await Goal.findByIdAndUpdate(
+    request.params.id,
+    request.body,
+    { new: true }
+  );
 
-    // Make sure the logged in user matches the goal user
-    if (goal.user.toString() !== user.id){
-        response.status(401)
-        throw new Error('User not authorized')
-    }
-
-    const updatedGoal = await Goal.findByIdAndUpdate(request.params.id, request.body, {new : true})
-
-    return response.status(200).json(updatedGoal)
-})
+  return response.status(200).json(updatedGoal);
+});
 
 // %desc Delete goal
 // route Delete /api/goals/:id
 // @access Private
 const deleteGoal = asyncHandler(async (request, response) => {
+  const goal = await Goal.findById(request.params.id);
 
-    const goal = await Goal.findById(request.params.id)
+  if (!goal) {
+    response.status(400);
+    throw new Error("Goal not found");
+  }
 
-    if (!goal){
-        response.status(400)
-        throw new Error("Goal not found")
-    }
+  // Check for user
+  if (!request.user) {
+    response.status(401);
+    throw new Error("User not found");
+  }
 
-    const user = await User.findById(request.user.id)
+  // Make sure the logged in user matches the goal user
+  if (goal.user.toString() !== request.user.id) {
+    response.status(401);
+    throw new Error("User not authorized");
+  }
 
-    // Check for user
-    if (!user){
-        response.status(401)
-        throw new Error('User not found')
-    }
+  await Goal.findByIdAndDelete(request.params.id);
 
-    // Make sure the logged in user matches the goal user
-    if (goal.user.toString() !== user.id){
-        response.status(401)
-        throw new Error('User not authorized')
-    }
-
-    await Goal.findByIdAndDelete(request.params.id)
-
-    response.status(200).json({ id : request.params.id})
-})
+  response.status(200).json({ id: request.params.id });
+});
 
 module.exports = {
-    getGoals,
-    setGoal,
-    updateGoal,
-    deleteGoal
-}
+  getGoals,
+  setGoal,
+  updateGoal,
+  deleteGoal,
+};
