@@ -1,13 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { Fragment } from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+  createRoutesFromElements,
+} from "react-router-dom";
+import Join from "./components/Join";
+import Chat from "./components/Chat";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Fragment>
+      <Route path="/" element={<Join />}/>
+      <Route path="/chat" element={<Chat />}/>
+    </Fragment>
+  )
+);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
