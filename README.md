@@ -1,14 +1,20 @@
-# Projects:
+# React Projects
+
+A collections of projects in react to get a better and advanced understanding of web applications and how the internet works.
 
 ## Index
-- [Projects:](#projects)
+- [React Projects](#react-projects)
   - [Index](#index)
   - [Goalsetter App](#goalsetter-app)
+    - [💻 MAIN STACK:](#-main-stack)
+  - [Realtime Chat Application](#realtime-chat-application)
+    - [💻 MAIN STACK:](#-main-stack-1)
 
-
-
+**[⬆ Back to Index](#index)**
 
 ## [Goalsetter App](https://github.com/VictorBarretoLF/React-Apps/tree/main/Goalsetter-App)
+
+### 💻 MAIN STACK:
 
  - [x] Express
  - [x] MongoDB
@@ -22,3 +28,11 @@
  - [x] react-toastify
  - [x] react-icons
 
+**[⬆ Back to Index](#index)**
+
+## [Realtime Chat Application](https://github.com/VictorBarretoLF/React-Apps/tree/main/chat-application)
+
+### 💻 MAIN STACK:
+
+ - [x] Express
+ - [x] Socket.io
