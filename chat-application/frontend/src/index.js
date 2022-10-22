@@ -16,8 +16,10 @@ import Chat from "./components/Chat/Chat";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Fragment>
-      <Route path="/" element={<Join />}/>
-      <Route path="/chat" element={<Chat />}/>
+      <Route path="/" element={<Join />} />
+      <Route path="/chat">
+        <Route path=":name/:room" element={<Chat />} />
+      </Route>
     </Fragment>
   )
 );
