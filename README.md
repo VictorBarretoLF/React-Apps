@@ -1,12 +1,14 @@
 # Projects:
 
 ## Index
-* [Goalsetter App](#GoalsetterApp)
+- [Projects:](#projects)
+  - [Index](#index)
+  - [Goalsetter App](#goalsetter-app)
 
 
 
 
-## Goalsetter App: [Goalsetter App](https://github.com/VictorBarretoLF/React-Apps/tree/main/Goalsetter-App)
+## [Goalsetter App](https://github.com/VictorBarretoLF/React-Apps/tree/main/Goalsetter-App)
 
  - [x] Express
  - [x] MongoDB
