@@ -6,15 +6,19 @@ A collections of projects in react to get a better and advanced understanding of
 - [React Projects](#react-projects)
   - [Index](#index)
   - [Goalsetter App](#goalsetter-app)
-    - [💻 MAIN STACK:](#-main-stack)
+    - [Description](#description)
+      - [💻 MAIN STACK:](#-main-stack)
   - [Realtime Chat Application](#realtime-chat-application)
-    - [💻 MAIN STACK:](#-main-stack-1)
+    - [Description](#description-1)
+      - [💻 MAIN STACK:](#-main-stack-1)
 
 **[⬆ Back to Index](#index)**
 
 ## [Goalsetter App](https://github.com/VictorBarretoLF/React-Apps/tree/main/Goalsetter-App)
 
-### 💻 MAIN STACK:
+### Description
+
+#### 💻 MAIN STACK:
 
  - [x] Express
  - [x] MongoDB
@@ -32,7 +36,9 @@ A collections of projects in react to get a better and advanced understanding of
 
 ## [Realtime Chat Application](https://github.com/VictorBarretoLF/React-Apps/tree/main/chat-application)
 
-### 💻 MAIN STACK:
+### Description
+
+#### 💻 MAIN STACK:
 
  - [x] Express
  - [x] Socket.io
