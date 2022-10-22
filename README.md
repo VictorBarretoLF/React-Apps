@@ -1,12 +1,22 @@
 # Projects:
-[Goalsetter App](https://github.com/VictorBarretoLF/React-Apps/tree/main/Goalsetter-App)
 
-#### 💻 Goalsetter App stack:
+## Index
+* [Goalsetter App](#GoalsetterApp)
 
- - [x] Typescript
- - [x] ReactJS
-* Mongoose
-* Hash Passwords
-* Protect Routes
-* JSON Web Tokens
-* 
+
+
+
+## Goalsetter App: [Goalsetter App](https://github.com/VictorBarretoLF/React-Apps/tree/main/Goalsetter-App)
+
+ - [x] Express
+ - [x] MongoDB
+ - [x] Mongoose
+ - [x] Hashing Passwords
+ - [x] Protected routes
+ - [x] JSON Web Tokens (JWT)
+ - [x] Redux
+ - [x] Redux Toolkit
+ - [x] react-router-dom
+ - [x] react-toastify
+ - [x] react-icons
+
