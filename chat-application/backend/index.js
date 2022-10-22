@@ -15,8 +15,14 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  socket.on('join', (data) => {
+  socket.on('join', (data, callback) => {
     console.log(data)
+
+    // send error to the frontend if something happended
+    // const error = true
+    // if(error) {
+    //   callback({error : 'string of error'})
+    // }
   })
 
   socket.on("disconnect", () => {

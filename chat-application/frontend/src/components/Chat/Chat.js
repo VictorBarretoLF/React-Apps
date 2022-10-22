@@ -10,7 +10,17 @@ const Chat = () => {
   useEffect(() => {
     socket = io("localhost:5000");
 
-    socket.emit("join", { name, room });
+    // handling error on the frontend
+    // socket.emit("join", { name, room }, (error) => {
+    //   alert("an error ocurred");
+    // });
+
+    socket.emit("join", { name, room }, () => {});
+    
+    return () => {
+      socket.disconnect()
+    }
+
   }, [name, room]);
 
   return (
