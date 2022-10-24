@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
-import InfoBar from "../InfoBar/InforBar";
 import "./Chat.css";
+
+import InfoBar from "../InfoBar/InforBar";
+import Input from "../Input/Input";
 
 let socket;
 
@@ -46,6 +48,11 @@ const Chat = () => {
     <div className="outerContainer">
       <div className="container">
         <InfoBar room={room} />
+        <Input
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+        />
       </div>
     </div>
   );
