@@ -7,7 +7,6 @@ import {
   createBrowserRouter,
   RouterProvider,
   Route,
-  Link,
   createRoutesFromElements,
 } from "react-router-dom";
 import Join from "./components/Join/Join";
