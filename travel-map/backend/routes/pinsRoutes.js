@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
-const { createPin } = require("../controlers/pinControlers");
+const { createPin, getPins } = require("../controlers/pinControlers");
 
-router.route("/").post(createPin);
+router.route("/").post(createPin).get(getPins);
 
 module.exports = router;
