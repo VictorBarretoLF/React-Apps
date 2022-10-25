@@ -23,6 +23,16 @@ const createPin = asyncHandler(async (request, response) => {
   throw new Error("Invalid data");
 });
 
+// %desc Get all Pins
+// route GET /api/pin
+// @access
+const getPins = asyncHandler(async (request, response) => {
+  const pins = await Pin.find();
+
+  response.status(200).json(pins);
+});
+
 module.exports = {
   createPin,
+  getPins,
 };
