@@ -28,8 +28,12 @@ const createPin = asyncHandler(async (request, response) => {
 // @access
 const getPins = asyncHandler(async (request, response) => {
   const pins = await Pin.find();
+  if (pins) {
+    return response.status(200).json(pins);
+  }
 
-  response.status(200).json(pins);
+  response.status(500);
+  throw new Error("An server error ocurred!");
 });
 
 module.exports = {
