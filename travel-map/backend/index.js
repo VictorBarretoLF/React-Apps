@@ -11,10 +11,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/pin", require("./routes/pinsRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
 
 app.use(errorHandler);
-
-console.log('ok')
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
