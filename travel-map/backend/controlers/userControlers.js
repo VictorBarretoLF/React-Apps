@@ -44,6 +44,33 @@ const registerUser = asyncHandler(async (request, response) => {
   }
 });
 
+// %desc Register new user
+// route POST /api/users
+// @access Public
+const loginUser = asyncHandler(async (request, response) => {
+  const { email, password } = request.body;
+
+  if (!email || !password) {
+    response.status(400);
+    throw new Error("Please add all fields");
+  }
+
+  const user = await User.findOne({ username });
+
+  const dbPassword = await bcrypt.compare(password, user.password);
+
+  if (user && dbPassword) {
+    response.json({
+      _id: user.id,
+      name: user.username,
+      email: user.email,
+    });
+  } else {
+    response.status(400);
+    throw new Error("Invalid credentials");
+  }
+});
+
 module.exports = {
   registerUser,
 };
