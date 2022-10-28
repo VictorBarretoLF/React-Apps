@@ -1,17 +1,27 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import Map, { Marker, NavigationControl, Popup } from "react-map-gl";
-import { Room, Star } from "@mui/icons-material";
+import { Room, Star, Close } from "@mui/icons-material";
 
 import "mapbox-gl/dist/mapbox-gl.css";
-import { Button, CardContent, Grid, Typography } from "@mui/material";
+import { Box, Button, CardContent, Grid, Typography } from "@mui/material";
+import { format } from "timeago.js";
 
 import axios from "axios";
+import useClickOutside from "./hooks/useClickOutside";
+
 // https://www.youtube.com/watch?v=JyPn_o_UJCM
 // import Mapbox from "react-map-gl/dist/esm/mapbox/mapbox";
 
-const PinsComponent = ({ data }) => {
-  const { title, lat, long, desc, username } = data;
-  console.log(data);
+
+
+const CustomMarker = ({ data }) => {
+  const { title, lat, long, desc, username, createdAt } = data;
+  const [show, setShow] = useState(false);
+
+  const domNode = useClickOutside(() => {
+    setShow(false);
+  });
+
   return (
     <Fragment>
       <Marker longitude={long} latitude={lat}>
@@ -20,89 +30,110 @@ const PinsComponent = ({ data }) => {
             fontSize: 50,
             color: "slate-blue",
           }}
+          onClick={() => setShow(true)}
         />
       </Marker>
-      <Popup longitude={long} latitude={lat} anchor="left">
-        <CardContent sx={{ width: 240, maxWidth: "md" }}>
-          <Typography
-            variant="h6"
-            sx={{
-              textDecoration: "underline",
-              color: "tomato",
-            }}
-          >
-            Place
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: 16,
-              margin: "4px 0px",
-              fontWeight: "bold",
-            }}
-          >
-            {title}
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              textDecoration: "underline",
-              color: "tomato",
-            }}
-          >
-            Review
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: 16,
-              margin: "4px 0px",
-            }}
-          >
-            {desc}
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              textDecoration: "underline",
-              color: "tomato",
-            }}
-          >
-            Rating
-          </Typography>
-          <Grid container spacing={1}>
-            <Grid item>
-              <Star sx={{ color: "gold", fontSize: 20 }} />
+      {show && (
+        <Popup
+          longitude={long}
+          latitude={lat}
+          anchor="left"
+          closeOnClick={false}
+          closeButton={false}
+        >
+          <CardContent sx={{ width: 240, maxWidth: "md" }} ref={domNode}>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography
+                variant="h6"
+                sx={{
+                  textDecoration: "underline",
+                  color: "tomato",
+                }}
+              >
+                Place
+              </Typography>
+
+              <Close
+                sx={{ transform: "translate(50%, -50%)" }}
+                onClick={() => setShow(false)}
+              />
             </Grid>
-            <Grid item>
-              <Star sx={{ color: "gold", fontSize: 20 }} />
-            </Grid>
-            <Grid item>
-              <Star sx={{ color: "gold", fontSize: 20 }} />
-            </Grid>
-            <Grid item>
-              <Star sx={{ color: "gold", fontSize: 20 }} />
-            </Grid>
-            <Grid item>
-              <Star sx={{ color: "gold", fontSize: 20 }} />
-            </Grid>
-          </Grid>
-          <Typography
-            variant="h6"
-            sx={{
-              textDecoration: "underline",
-              color: "tomato",
-            }}
-          >
-            Information
-          </Typography>
-          <Typography>
-            Created by{" "}
-            <Typography variant="span" sx={{ fontWeight: "bold" }}>
-              {username}
+            <Typography
+              sx={{
+                fontSize: 16,
+                margin: "4px 0px",
+                fontWeight: "bold",
+              }}
+            >
+              {title}
             </Typography>
-          </Typography>
-          <Typography sx={{ fontSize: 14 }}>1 hour ago</Typography>
-        </CardContent>
-      </Popup>
+            <Typography
+              variant="h6"
+              sx={{
+                textDecoration: "underline",
+                color: "tomato",
+              }}
+            >
+              Review
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: 16,
+                margin: "4px 0px",
+              }}
+            >
+              {desc}
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                textDecoration: "underline",
+                color: "tomato",
+              }}
+            >
+              Rating
+            </Typography>
+            <Grid container spacing={1}>
+              <Grid item>
+                <Star sx={{ color: "gold", fontSize: 20 }} />
+              </Grid>
+              <Grid item>
+                <Star sx={{ color: "gold", fontSize: 20 }} />
+              </Grid>
+              <Grid item>
+                <Star sx={{ color: "gold", fontSize: 20 }} />
+              </Grid>
+              <Grid item>
+                <Star sx={{ color: "gold", fontSize: 20 }} />
+              </Grid>
+              <Grid item>
+                <Star sx={{ color: "gold", fontSize: 20 }} />
+              </Grid>
+            </Grid>
+            <Typography
+              variant="h6"
+              sx={{
+                textDecoration: "underline",
+                color: "tomato",
+              }}
+            >
+              Information
+            </Typography>
+            <Typography>
+              Created by{" "}
+              <Typography variant="span" sx={{ fontWeight: "bold" }}>
+                {username}
+              </Typography>
+            </Typography>
+            <Typography sx={{ fontSize: 14 }}>{format(createdAt)}</Typography>
+          </CardContent>
+        </Popup>
+      )}
     </Fragment>
   );
 };
@@ -137,7 +168,7 @@ function App() {
       >
         <NavigationControl position="top-left" />
         {pins.map((pin) => {
-          return <PinsComponent key={pin._id} data={pin} />;
+          return <CustomMarker key={pin._id} data={pin} />;
         })}
       </Map>
     </Fragment>
