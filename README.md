@@ -11,12 +11,14 @@ A collections of projects in react to get a better and advanced understanding of
   - [Realtime Chat Application](#realtime-chat-application)
     - [Description](#description-1)
       - [💻 MAIN STACK:](#-main-stack-1)
-
-**[⬆ Back to Index](#index)**
+  - [Full Stack Blog App](#full-stack-blog-app)
 
 ## [Goalsetter App](https://github.com/VictorBarretoLF/React-Apps/tree/main/Goalsetter-App)
 
 ### Description
+
+Fullstack application with React.js and express. Learned how to structure files
+and how to use redux to better structure the code, how authorization and authentication works on the backend and on the frontend.
 
 #### 💻 MAIN STACK:
 
@@ -42,3 +44,6 @@ A collections of projects in react to get a better and advanced understanding of
 
  - [x] Express
  - [x] Socket.io
+ - [x] Mapbox
+
+## Full Stack Blog App
