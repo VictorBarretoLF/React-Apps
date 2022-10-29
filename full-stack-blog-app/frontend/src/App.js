@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -7,6 +8,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Single from "./pages/Single";
 import Write from "./pages/Write";
+
+import "./App.scss";
 
 const Layout = () => {
   return (
@@ -24,7 +27,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        index : true,
+        index: true,
         element: <Home />,
       },
       {
