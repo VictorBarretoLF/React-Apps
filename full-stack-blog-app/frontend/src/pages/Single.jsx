@@ -1,5 +1,6 @@
 import { MdDelete, MdDraw } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Menu from "../components/Menu";
 
 const Single = () => {
   return (
@@ -27,8 +28,39 @@ const Single = () => {
             </Link>
           </div>
         </div>
+        <h1 className="single__title">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+        </h1>
+        <br />
+        <p className="single__paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia commodi
+          asperiores, accusantium quam non harum optio reprehenderit nobis nihil
+          nesciunt illo doloremque ex eaque ipsa est libero minus dolorum ad.
+          Facilis sed, voluptas magni corrupti debitis natus, eum saepe error
+          temporibus impedit itaque delectus a blanditiis! Eum nobis, aliquam
+          tempore numquam provident animi magni ipsam repudiandae nisi
+          necessitatibus cum placeat? Natus, non obcaecati vitae magni dolorem
+          quo facilis dicta neque omnis explicabo praesentium ut molestiae
+          sapiente, impedit minima, odit enim. Alias dolorem reprehenderit
+          ratione earum possimus est maxime eius animi.
+        </p>
+        <br />
+        <p className="single__paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia commodi
+          asperiores, accusantium quam non harum optio reprehenderit nobis nihil
+          nesciunt illo doloremque ex eaque ipsa est libero minus dolorum ad.
+          Facilis sed, voluptas magni corrupti debitis natus, eum saepe error
+          temporibus impedit itaque delectus a blanditiis! Eum nobis, aliquam
+          tempore numquam provident animi magni ipsam repudiandae nisi
+          necessitatibus cum placeat? Natus, non obcaecati vitae magni dolorem
+          quo facilis dicta neque omnis explicabo praesentium ut molestiae
+          sapiente, impedit minima, odit enim. Alias dolorem reprehenderit
+          ratione earum possimus est maxime eius animi.
+        </p>
       </div>
-      <div className="single__menu">m</div>
+      <div className="single__menu">
+        <Menu />
+      </div>
     </div>
   );
 };
