@@ -7,6 +7,4 @@ const db = mysql.createConnection({
   database: "blog",
 });
 
-module.exports = {
-  db,
-};
+module.exports = db;
