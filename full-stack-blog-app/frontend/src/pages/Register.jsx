@@ -24,10 +24,11 @@ const Register = () => {
     try {
       await axios.post("/auth/register", inputs);
       navigate("/login");
+      console.log("submitted");
     } catch (error) {
       setError(error.response.data);
+      console.log("error");
     }
-    console.log("submitted");
   };
 
   return (

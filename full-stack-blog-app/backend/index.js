@@ -1,7 +1,13 @@
 const express = require("express");
 const { errorHandler } = require("./middleware/errorMiddleware");
+const db = require("./config/db");
 const app = express();
 const PORT = 5000;
+
+db.connect((err) => {
+  if (err) console.log(err);
+  else console.log("Connected");
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

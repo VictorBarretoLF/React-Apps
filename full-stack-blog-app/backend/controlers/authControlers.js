@@ -7,13 +7,14 @@ var bcrypt = require("bcryptjs");
 // @access Public
 const register = asyncHandler(async (req, res) => {
   const { email, username, password } = req.body;
-
+  
   if (!email || !username || !password) {
     res.status(400);
     throw new Error("Please add all fields");
   }
   // check for existing user
   const q = "SELECT * FROM users WHERE email = ? OR username = ?";
+
   db.query(q, [email, username], (err, data) => {
     if (err) return res.json(err);
 
