@@ -12,6 +12,9 @@ A collections of projects in react to get a better and advanced understanding of
     - [Description](#description-1)
       - [💻 MAIN STACK:](#-main-stack-1)
   - [Full Stack Blog App](#full-stack-blog-app)
+    - [Description](#description-2)
+      - [💻 MAIN STACK:](#-main-stack-2)
+
 
 ## [Goalsetter App](https://github.com/VictorBarretoLF/React-Apps/tree/main/Goalsetter-App)
 
@@ -47,3 +50,14 @@ and how to use redux to better structure the code, how authorization and authent
  - [x] Mapbox
 
 ## Full Stack Blog App
+
+### Description
+
+#### 💻 MAIN STACK:
+
+ - [x] Express
+ - [x] express-async-handler
+ - [x] jsonwebtoken
+ - [x] mysql
+ - [x] bcryptjs
+ - [x] cookie-parser
