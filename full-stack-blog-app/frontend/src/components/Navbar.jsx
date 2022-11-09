@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
 import navbarLinks from "../data/navbarLinks";
+import useAuth from "../hooks/useAuthContext";
 
 const Navbar = () => {
+  const { currentUser, logout } = useAuth();
+
   return (
     <div className="navbar">
       <div className="navbar__container">
@@ -17,8 +20,12 @@ const Navbar = () => {
               </Link>
             );
           })}
-          <span>John</span>
-          <span>Logout</span>
+          <span>{currentUser?.username}</span>
+          {currentUser ? (
+            <span onClick={logout}>Logout</span>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
           <span className="navbar__links--write">
             <Link className="navbar__links--link" to="/write">
               Write

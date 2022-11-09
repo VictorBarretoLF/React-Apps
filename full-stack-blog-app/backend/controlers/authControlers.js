@@ -74,7 +74,13 @@ const login = asyncHandler(async (req, res) => {
 // route POST /api/auth/logout
 // @access Private
 const logout = asyncHandler(async (req, res) => {
-  res.json("user logout");
+  res
+    .clearCookie("access_token", {
+      sameSite: "none",
+      secure: true,
+    })
+    .status(200)
+    .json("User has been logged out!");
 });
 
 module.exports = {
