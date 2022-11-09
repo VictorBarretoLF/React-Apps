@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = await axios.post("/auth/login", inputs);
-      console.log(data)
+      console.log(data);
       navigate("/");
     } catch (err) {
       setError(err.response.data);
