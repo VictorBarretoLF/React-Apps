@@ -1,44 +1,27 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Home = () => {
-  const posts = [
-    {
-      id: 1,
-      title:
-        "Tempora doloribus tenetur quasi omnis, cumque accusantium et harum adipisci.",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium eum ullam corrupti animi est asperiores, voluptates nemo modi! ",
-      img: "https://tkmarketing.com.br/wp-content/uploads/2022/03/blog-tk.png",
-    },
-    {
-      id: 2,
-      title:
-        "Tempora doloribus tenetur quasi omnis, cumque accusantium et harum adipisci.",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium eum ullam corrupti animi est asperiores, voluptates nemo modi! ",
-      img: "https://tkmarketing.com.br/wp-content/uploads/2022/03/blog-tk.png",
-    },
-    {
-      id: 3,
-      title:
-        "Tempora doloribus tenetur quasi omnis, cumque accusantium et harum adipisci.",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium eum ullam corrupti animi est asperiores, voluptates nemo modi! ",
-      img: "https://tkmarketing.com.br/wp-content/uploads/2022/03/blog-tk.png",
-    },
-    {
-      id: 4,
-      title:
-        "Tempora doloribus tenetur quasi omnis, cumque accusantium et harum adipisci.",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium eum ullam corrupti animi est asperiores, voluptates nemo modi! ",
-      img: "https://tkmarketing.com.br/wp-content/uploads/2022/03/blog-tk.png",
-    },
-    {
-      id: 5,
-      title:
-        "Tempora doloribus tenetur quasi omnis, cumque accusantium et harum adipisci.",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium eum ullam corrupti animi est asperiores, voluptates nemo modi! ",
-      img: "https://tkmarketing.com.br/wp-content/uploads/2022/03/blog-tk.png",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+
+  const cat = useLocation().search;
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await axios.get(`/posts${cat}`);
+        console.log(res.data);
+        setPosts(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchPosts();
+  }, [cat]);
+
   return (
     <div className="home">
       <div className="home__posts">
@@ -52,7 +35,10 @@ const Home = () => {
                 <Link to={`/post/${post.id}`}>
                   <h3>{post.title}</h3>
                 </Link>
-                <p>{post.desc}</p>
+                <p>
+                  {post.description.slice(0, 200)}
+                  {post.description.length > 200 ? "..." : ""}
+                </p>
                 <button>Read More</button>
               </div>
             </div>

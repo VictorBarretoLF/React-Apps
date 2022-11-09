@@ -1,7 +1,16 @@
 const asyncHandler = require("express-async-handler");
+const db = require("../config/db");
 
-const getPosts = asyncHandler(async (req, res) => {
-  res.json("all posts");
+const getPostsByCategory = asyncHandler(async (req, res) => {
+  const q = req.query.cat
+    ? "SELECT * FROM posts WHERE cat=?"
+    : "SELECT * FROM posts";
+
+  db.query(q, [req.query.cat], (err, data) => {
+    if (err) return res.status(500).send(err);
+
+    return res.status(200).json(data);
+  });
 });
 
 const getPost = asyncHandler(async (req, res) => {
@@ -21,7 +30,7 @@ const updatePost = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  getPosts,
+  getPostsByCategory,
   getPost,
   addPost,
   deletePost,
