@@ -14,8 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/api/posts", require("./routes/postsRoutes"));
 app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/posts", require("./routes/postsRoutes"));
 app.use("/api/users", require("./routes/usersRoutes"));
 
 app.use(errorHandler);

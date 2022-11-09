@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-const { getPosts } = require("../controlers/postsControlers");
+const {
+  getPosts,
+  getPost,
+  addPost,
+  deletePost,
+  updatePost,
+} = require("../controlers/postsControlers");
 
-router.route("/").get(getPosts);
-router.route("/:id").get(getPosts);
-router.route("/").get(getPosts);
+router.route("/").get(getPosts).post(addPost);
+router.route("/:id").get(getPost).delete(deletePost).put(updatePost);
 
 module.exports = router;
