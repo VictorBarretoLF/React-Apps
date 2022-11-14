@@ -42,8 +42,7 @@ const login = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    res.status(400);
-    return res.json("Please add all fields");
+    return res.status(400).json("Please add all fields");
   }
 
   const q = "SELECT * FROM users WHERE username = ?";
