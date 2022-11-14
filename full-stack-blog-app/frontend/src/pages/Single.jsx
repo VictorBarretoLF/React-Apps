@@ -11,7 +11,7 @@ const Single = () => {
   const navigate = useNavigate();
 
   const { postId } = useParams();
-  
+  console.log(post);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,12 +32,14 @@ const Single = () => {
           alt="imager"
         />
         <div className="single__user">
-          <img
-            src="https://images.pexels.com/photos/2007647/pexels-photo-2007647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="images"
-          />
+          {post.userImg && (
+            <img
+              src="https://images.pexels.com/photos/2007647/pexels-photo-2007647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              alt="images"
+            />
+          )}
           <div className="single__info">
-            <span>John</span>
+            <span>{post.username}</span>
             <p>Posted 2 days ago</p>
           </div>
           <div className="single__edit">
@@ -49,9 +51,7 @@ const Single = () => {
             </Link>
           </div>
         </div>
-        <h1 className="single__title">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-        </h1>
+        <h1 className="single__title">{post.title}</h1>
         <br />
         <p className="single__paragraph">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia commodi
