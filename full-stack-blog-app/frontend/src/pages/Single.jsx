@@ -1,8 +1,29 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { MdDelete, MdDraw } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Menu from "../components/Menu";
 
 const Single = () => {
+  const [post, setPost] = useState({});
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const { postId } = useParams();
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/posts/${postId}`);
+        setPost(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [postId]);
+
   return (
     <div className="single">
       <div className="single__content">
