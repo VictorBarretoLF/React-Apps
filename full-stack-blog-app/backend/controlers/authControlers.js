@@ -52,7 +52,6 @@ const register = asyncHandler(async (req, res) => {
     response.status(400);
     throw new Error("Invalid user data");
   }
-
 });
 
 // %desc Login user
@@ -62,31 +61,36 @@ const login = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(400).json("Please add all fields");
+    res.status(400);
+    throw new Error("Please add all fields");
   }
 
-  const q = "SELECT * FROM users WHERE username = ?";
-  db.query(q, [username], (err, data) => {
-    if (err) return res.json(err);
-    if (data.length === 0) return res.status(404).json("User not found!");
-
-    // Check Password
-    const isPasswordCorrect = bcrypt.compareSync(password, data[0].password);
-
-    if (!isPasswordCorrect)
-      return res.status(400).json("Wrong username or password!");
-
-    const token = jwt.sign({ id: data[0].id }, "jwtkey");
-
-    delete data[0].password;
-
-    res
-      .cookie("access_token", token, {
-        httpOnly: true,
-      })
-      .status(200)
-      .json(data[0]);
+  const user = await prisma.user.findUnique({
+    where: { username: username },
   });
+
+  if (!user) {
+    res.status(400);
+    throw new Error("Wrong username or password!");
+  }
+
+  const isPasswordCorrect = bcrypt.compareSync(password, user.password);
+
+  if (!isPasswordCorrect) {
+    res.status(400);
+    throw new Error("Wrong username or password!");
+  }
+
+  const token = jwt.sign({ id: user.id }, "jwtkey");
+
+  delete user.password;
+
+  res
+    .cookie("access_token", token, {
+      httpOnly: true,
+    })
+    .status(200)
+    .json(user);
 });
 
 // %desc Logout user
