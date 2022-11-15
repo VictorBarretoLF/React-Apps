@@ -3,6 +3,9 @@ const db = require("../config/db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+
 // %desc Register user
 // route POST /api/auth/register
 // @access Public
@@ -13,26 +16,43 @@ const register = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please add all fields");
   }
-  // check for existing user
-  const q = "SELECT * FROM users WHERE email = ? OR username = ?";
 
-  db.query(q, [email, username], (err, data) => {
-    if (err) return res.json(err);
-
-    if (data.length) return res.status(409).json("User already exists!");
-
-    // hash password
-    const salt = bcrypt.genSaltSync(10);
-    const hashPassword = bcrypt.hashSync(password, salt);
-
-    const q2 = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
-    const values = [username, email, hashPassword];
-
-    db.query(q2, values, (err, data) => {
-      if (err) return res.json(err);
-      return res.status(200).json("User has been created!");
-    });
+  // check if user exists
+  const usernameExists = await prisma.user.findUnique({
+    where: { username },
   });
+
+  const emailExists = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (usernameExists || emailExists) {
+    throw new Error("Username or e-mail current in use!");
+  }
+
+  // Hash password
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(password, salt);
+
+  const user = await prisma.user.create({
+    data: {
+      username,
+      email,
+      password: hashedPassword,
+    },
+  });
+
+  if (user) {
+    res.status(201).json({
+      id: user.id,
+      name: user.username,
+      email: user.email,
+    });
+  } else {
+    response.status(400);
+    throw new Error("Invalid user data");
+  }
+
 });
 
 // %desc Login user

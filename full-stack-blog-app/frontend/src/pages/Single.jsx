@@ -24,6 +24,15 @@ const Single = () => {
     fetchData();
   }, [postId]);
 
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/posts/${postId}`);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="single">
       <div className="single__content">
@@ -43,11 +52,10 @@ const Single = () => {
             <p>Posted 2 days ago</p>
           </div>
           <div className="single__edit">
-            <Link to={`/write?edit=2`} className="single__edit--icons">
-              <MdDelete title="delete" />
-            </Link>
-            <Link to={`/write?edit=2`} className="single__edit--icons">
-              <MdDraw title="edit" />
+            <MdDelete className="single__edit--delete" title="delete" />
+
+            <Link to={`/write?edit=2`}>
+              <MdDraw className="single__edit--edit" title="edit" />
             </Link>
           </div>
         </div>

@@ -40,24 +40,21 @@
   &__edit {
     display: flex;
     gap: 10px;
-    &--icons {
+    &--edit,
+    &--delete {
       background-color: teal;
-      display: block;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 30px;
       height: 30px;
+      padding: 2px;
       border-radius: 50%;
-      font-size: 1.25rem;
+      color: #fff;
+    }
 
-      &:nth-of-type(2) {
-        background-color: #d0342c;
-      }
-
-      svg {
-        color: white;
-      }
+    &--delete {
+      background-color: red;
     }
   }
 
