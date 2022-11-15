@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 // route GET /api/post?cat=?
 // @access Public
 const getPostsByCategory = asyncHandler(async (req, res) => {
-
   const { cat } = req.query;
 
   const q = cat
@@ -24,16 +23,34 @@ const getPostsByCategory = asyncHandler(async (req, res) => {
 const getPost = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  const q = `
-  SELECT p.id, u.username, p.title, p.description, p.img, u.image AS userImg, p.cat, p.createdAt 
-  FROM users u 
-  INNER JOIN posts p ON u.id = p.userID WHERE p.id = ?`;
-
-  db.query(q, [id], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.length === 0) return res.status(404).json("No post found!");
-    return res.status(200).json(data[0]);
+  const post = await prisma.post.findUnique({
+    where: {
+      id: parseInt(id),
+    },
+    include: {
+      author: {
+        select: {
+          id: true,
+          username: true,
+          email: true,
+          image: true,
+        },
+      },
+    },
   });
+
+  res.json(post);
+  console.log(post);
+  // const q = `
+  // SELECT p.id, u.username, p.title, p.description, p.img, u.image AS userImg, p.cat, p.createdAt
+  // FROM users u
+  // INNER JOIN posts p ON u.id = p.userID WHERE p.id = ?`;
+
+  // db.query(q, [id], (err, data) => {
+  //   if (err) return res.status(500).json(err);
+  //   if (data.length === 0) return res.status(404).json("No post found!");
+  //   return res.status(200).json(data[0]);
+  // });
 });
 
 const addPost = asyncHandler(async (req, res) => {
