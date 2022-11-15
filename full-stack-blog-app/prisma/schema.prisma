@@ -13,6 +13,10 @@ datasource db {
 enum Cat {
   ART
   SCIENCE
+  TECHNOLOGY
+  CINEMA
+  DESIGN
+  FOOD
 }
 
 model Post {
@@ -23,7 +27,6 @@ model Post {
   img       String   @db.VarChar(255)
   desc      String   @db.VarChar(10000)
   cat       Cat
-  published Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
 }

@@ -1,16 +1,24 @@
 const asyncHandler = require("express-async-handler");
 const db = require("../config/db");
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
+// %desc Get posts by category
+// route GET /api/post?cat=?
+// @access Public
 const getPostsByCategory = asyncHandler(async (req, res) => {
-  const q = req.query.cat
-    ? "SELECT * FROM posts WHERE cat=?"
-    : "SELECT * FROM posts";
 
-  db.query(q, [req.query.cat], (err, data) => {
-    if (err) return res.status(500).send(err);
+  const { cat } = req.query;
 
-    return res.status(200).json(data);
-  });
+  const q = cat
+    ? {
+        where: { cat: req.query.cat.toUpperCase() },
+      }
+    : {};
+
+  const posts = await prisma.post.findMany(q);
+
+  res.status(200).json(posts);
 });
 
 const getPost = asyncHandler(async (req, res) => {
