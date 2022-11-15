@@ -20,6 +20,9 @@ const getPostsByCategory = asyncHandler(async (req, res) => {
   res.status(200).json(posts);
 });
 
+// %desc Get post by url param
+// route GET /api/posts/?
+// @access Public
 const getPost = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
@@ -39,18 +42,12 @@ const getPost = asyncHandler(async (req, res) => {
     },
   });
 
-  res.json(post);
-  console.log(post);
-  // const q = `
-  // SELECT p.id, u.username, p.title, p.description, p.img, u.image AS userImg, p.cat, p.createdAt
-  // FROM users u
-  // INNER JOIN posts p ON u.id = p.userID WHERE p.id = ?`;
+  if (!post) {
+    res.status(404);
+    throw new Error("No post found!");
+  }
 
-  // db.query(q, [id], (err, data) => {
-  //   if (err) return res.status(500).json(err);
-  //   if (data.length === 0) return res.status(404).json("No post found!");
-  //   return res.status(200).json(data[0]);
-  // });
+  res.status(200).json(post);
 });
 
 const addPost = asyncHandler(async (req, res) => {

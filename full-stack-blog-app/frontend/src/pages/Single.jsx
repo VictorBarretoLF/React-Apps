@@ -41,14 +41,14 @@ const Single = () => {
           alt="imager"
         />
         <div className="single__user">
-          {post.userImg && (
+          {post.author?.image && (
             <img
               src="https://images.pexels.com/photos/2007647/pexels-photo-2007647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt="images"
             />
           )}
           <div className="single__info">
-            <span>{post.username}</span>
+            <span>{post.author?.username}</span>
             <p>Posted 2 days ago</p>
           </div>
           <div className="single__edit">
@@ -60,32 +60,7 @@ const Single = () => {
           </div>
         </div>
         <h1 className="single__title">{post.title}</h1>
-        <br />
-        <p className="single__paragraph">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia commodi
-          asperiores, accusantium quam non harum optio reprehenderit nobis nihil
-          nesciunt illo doloremque ex eaque ipsa est libero minus dolorum ad.
-          Facilis sed, voluptas magni corrupti debitis natus, eum saepe error
-          temporibus impedit itaque delectus a blanditiis! Eum nobis, aliquam
-          tempore numquam provident animi magni ipsam repudiandae nisi
-          necessitatibus cum placeat? Natus, non obcaecati vitae magni dolorem
-          quo facilis dicta neque omnis explicabo praesentium ut molestiae
-          sapiente, impedit minima, odit enim. Alias dolorem reprehenderit
-          ratione earum possimus est maxime eius animi.
-        </p>
-        <br />
-        <p className="single__paragraph">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia commodi
-          asperiores, accusantium quam non harum optio reprehenderit nobis nihil
-          nesciunt illo doloremque ex eaque ipsa est libero minus dolorum ad.
-          Facilis sed, voluptas magni corrupti debitis natus, eum saepe error
-          temporibus impedit itaque delectus a blanditiis! Eum nobis, aliquam
-          tempore numquam provident animi magni ipsam repudiandae nisi
-          necessitatibus cum placeat? Natus, non obcaecati vitae magni dolorem
-          quo facilis dicta neque omnis explicabo praesentium ut molestiae
-          sapiente, impedit minima, odit enim. Alias dolorem reprehenderit
-          ratione earum possimus est maxime eius animi.
-        </p>
+        <p className="single__paragraph">{post.desc}</p>
       </div>
       <div className="single__menu">
         <Menu />
