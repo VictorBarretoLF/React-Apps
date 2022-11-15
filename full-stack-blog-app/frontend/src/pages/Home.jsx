@@ -36,8 +36,8 @@ const Home = () => {
                   <h3>{post.title}</h3>
                 </Link>
                 <p>
-                  {post.description.slice(0, 200)}
-                  {post.description.length > 200 ? "..." : ""}
+                  {post.desc.slice(0, 200)}
+                  {post.desc.length > 200 ? "..." : ""}
                 </p>
                 <button>Read More</button>
               </div>
