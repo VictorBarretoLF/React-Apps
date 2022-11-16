@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const db = require("../config/db");
+const jwt = require("jsonwebtoken");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
@@ -55,7 +55,20 @@ const addPost = asyncHandler(async (req, res) => {
 });
 
 const deletePost = asyncHandler(async (req, res) => {
-  res.json("deleting");
+  const { access_token } = req.cookies;
+  console.log(access_token);
+  // if (!access_token) {
+  //   res.status(401);
+  //   throw new Error("Not authenticated!");
+  // }
+
+  // const postId = req.params.id;
+
+  // const j = jwt.verify(access_token, "jwtkey", (err, userInfo) => {
+  //   return userInfo;
+  // });
+
+  return res.json({ data: "hello" });
 });
 
 const updatePost = asyncHandler(async (req, res) => {

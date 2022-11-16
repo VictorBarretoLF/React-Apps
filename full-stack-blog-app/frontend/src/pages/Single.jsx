@@ -1,17 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { MdDelete, MdDraw } from "react-icons/md";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Menu from "../components/Menu";
 
 const Single = () => {
   const [post, setPost] = useState({});
 
-  const location = useLocation();
   const navigate = useNavigate();
 
   const { postId } = useParams();
-  console.log(post);
+  // console.log(post);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,7 +25,8 @@ const Single = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/posts/${postId}`);
+      const p = await axios.delete(`/posts/${postId}`);
+      console.log("deleting post:", p);
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -52,7 +52,11 @@ const Single = () => {
             <p>Posted 2 days ago</p>
           </div>
           <div className="single__edit">
-            <MdDelete className="single__edit--delete" title="delete" />
+            <MdDelete
+              onClick={handleDelete}
+              className="single__edit--delete"
+              title="delete"
+            />
 
             <Link to={`/write?edit=2`}>
               <MdDraw className="single__edit--edit" title="edit" />

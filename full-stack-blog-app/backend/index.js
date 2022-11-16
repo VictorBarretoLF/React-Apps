@@ -5,10 +5,10 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const PORT = 5000;
 
-db.connect((err) => {
-  if (err) console.log(err);
-  else console.log("Connected");
-});
+// db.connect((err) => {
+//   if (err) console.log(err);
+//   else console.log("Connected");
+// });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
