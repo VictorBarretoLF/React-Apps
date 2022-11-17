@@ -8,19 +8,20 @@ import { Container } from "./styles";
 
 const index = () => {
   return (
-    <header>
-      <h2>Tarefas</h2>
-      <button type="button">
-        <MdAdd size={24} color="#FFF" />
-      </button>
-
+    <Container>
+      <header>
+        <h2>Tarefas</h2>
+        <button type="button">
+          <MdAdd size={24} color="#FFF" />
+        </button>
+      </header>
       <ul>
         <Card />
         <Card />
         <Card />
         <Card />
       </ul>
-    </header>
+    </Container>
   );
 };
 
