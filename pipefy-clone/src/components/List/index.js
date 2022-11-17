@@ -6,7 +6,7 @@ import Card from "../Card";
 
 import { Container } from "./styles";
 
-const index = ({ data }) => {
+const List = ({ data }) => {
   return (
     <Container done={data.done}>
       <header>
@@ -27,4 +27,4 @@ const index = ({ data }) => {
   );
 };
 
-export default index;
+export default List;
