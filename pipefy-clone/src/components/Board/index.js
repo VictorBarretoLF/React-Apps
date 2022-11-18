@@ -7,7 +7,7 @@ import { Container } from "./styles";
 
 const lists = loadLists();
 
-const index = () => {
+const Board = () => {
   return (
     <Container>
       {lists.map((list) => {
@@ -17,4 +17,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Board;
