@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { BoardContext } from "../../contexts/context";
 import { loadLists } from "../../services/api";
 
 import List from "../List";
 
 import { Container } from "./styles";
 
-const lists = loadLists();
-
 const Board = () => {
+  const { lists } = useContext(BoardContext);
+
   return (
     <Container>
       {lists.map((list) => {

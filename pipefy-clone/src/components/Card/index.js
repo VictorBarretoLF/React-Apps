@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import { BoardContext } from "../../contexts/context";
 
 import { Container, Label } from "./styles";
 
 const Card = ({ data, index }) => {
+  const { move } = useContext(BoardContext);
   const ref = useRef();
 
   const [{ isDragging }, dragRef] = useDrag({
@@ -31,7 +33,17 @@ const Card = ({ data, index }) => {
     const draggedOffset = monitor.getClientOffset();
     const draggedTop = draggedOffset.y - targetSize.top;
 
-    console.log(draggedTop, targetCenter);
+    if (draggedIndex < targetIndex && draggedTop < targetCenter) {
+      return;
+    }
+
+    if (draggedIndex > targetIndex && draggedTop > targetCenter) {
+      return;
+    }
+
+    move(draggedIndex, targetIndex);
+
+    // console.log(draggedTop, targetCenter);
   };
 
   dragRef(dropRef(ref));
