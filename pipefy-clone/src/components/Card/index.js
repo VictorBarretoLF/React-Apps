@@ -4,13 +4,13 @@ import { BoardContext } from "../../contexts/context";
 
 import { Container, Label } from "./styles";
 
-const Card = ({ data, index }) => {
+const Card = ({ data, index, listIndex }) => {
   const { move } = useContext(BoardContext);
   const ref = useRef();
 
   const [{ isDragging }, dragRef] = useDrag({
     type: "CARD",
-    item: { id: data.id, index },
+    item: { id: data.id, index, listIndex },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -22,6 +22,9 @@ const Card = ({ data, index }) => {
   });
 
   const hovering = (item, monitor) => {
+    const dragedListIndex = item.listIndex;
+    // const targetListIndex = listIndex
+
     const draggedIndex = item.index;
     const targetIndex = index;
 
@@ -41,9 +44,11 @@ const Card = ({ data, index }) => {
       return;
     }
 
-    move(draggedIndex, targetIndex);
+    move(dragedListIndex, draggedIndex, targetIndex);
 
-    // console.log(draggedTop, targetCenter);
+    // concertando bug que fica aparecendo e trocando de lista várias vezes
+
+    item.index = targetIndex;
   };
 
   dragRef(dropRef(ref));

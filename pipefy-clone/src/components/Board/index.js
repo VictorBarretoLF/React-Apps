@@ -11,8 +11,8 @@ const Board = () => {
 
   return (
     <Container>
-      {lists.map((list) => {
-        return <List key={list.title} data={list} />;
+      {lists.map((list, index) => {
+        return <List key={list.title} data={list} index={index} />;
       })}
     </Container>
   );

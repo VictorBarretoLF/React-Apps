@@ -6,7 +6,8 @@ import Card from "../Card";
 
 import { Container } from "./styles";
 
-const List = ({ data }) => {
+const List = ({ data, index: listIndex }) => {
+
   return (
     <Container done={data.done}>
       <header>
@@ -20,7 +21,7 @@ const List = ({ data }) => {
 
       <ul>
         {data.cards.map((card, index) => (
-          <Card key={card.id} index={index} data={card} />
+          <Card key={card.id} listIndex={listIndex} index={index} data={card} />
         ))}
       </ul>
     </Container>
