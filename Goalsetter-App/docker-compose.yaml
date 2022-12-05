@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  # app:
+  #   build: ./backend
+  #   restart: always
+  #   ports:
+  #     - 5000:5000
+  #   networks:
+  #     - app_net
+  #   environment:
+  #     - MONGO_URI=mongodb://${MONGO_HOST}
+
+  mongo:
+    image: mongo
+    restart: always
+    networks:
+      - app_net
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_HOST}
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    networks:
+      - app_net
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_HOST}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_HOST}:password@mongo:27017/
+
+networks:
+  app_net:
+    driver: bridge
