@@ -1,0 +1,69 @@
+.single {
+  display: flex;
+  gap: 50px;
+
+  &__content {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+  }
+
+  &__menu {
+    flex: 2;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.875rem;
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    span {
+      font-weight: 700;
+    }
+  }
+
+  &__edit {
+    display: flex;
+    gap: 10px;
+    &--edit,
+    &--delete {
+      background-color: teal;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      padding: 2px;
+      border-radius: 50%;
+      color: #fff;
+    }
+
+    &--delete {
+      background-color: red;
+    }
+  }
+
+  &__title {
+    color: #333;
+  }
+
+  &__paragraph {
+    text-align: justify;
+    line-height: 1.875rem;
+  }
+}
