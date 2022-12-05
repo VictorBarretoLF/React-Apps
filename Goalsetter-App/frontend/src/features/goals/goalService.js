@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstace from '../../utils/axiosInstance'
 
 const API_URL = "/api/goals/";
 
@@ -10,7 +10,7 @@ const createGoal = async (goalData, token) => {
     },
   };
 
-  const response = await axios.post(API_URL, goalData, config);
+  const response = await axiosInstace.post(API_URL, goalData, config);
 
   return response.data;
 };
@@ -23,7 +23,7 @@ const getGoals = async (token) => {
     },
   };
 
-  const response = await axios.get(API_URL, config);
+  const response = await axiosInstace.get(API_URL, config);
 
   return response.data;
 };
@@ -36,7 +36,7 @@ const deleteGoal = async (goalId, token) => {
     },
   };
 
-  const response = await axios.delete(API_URL + goalId, config);
+  const response = await axiosInstace.delete(API_URL + goalId, config);
 
   return response.data;
 };
