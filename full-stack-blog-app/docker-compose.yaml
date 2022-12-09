@@ -1,0 +1,35 @@
+services:
+
+  db:
+    image: mysql
+    container_name: db
+    environment:
+      MYSQL_USER: admin
+      MYSQL_DATABASE: blog
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_HOST: "%"
+    networks:
+      - app_net
+    restart: always
+    ports:
+      - 3306:3306
+    # volumes:
+    #   - ./database/:/var/lib/mysql
+  
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    networks:
+      - app_net
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8080:80
+
+networks:
+  app_net:
+    driver: bridge
