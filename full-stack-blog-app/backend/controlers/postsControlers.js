@@ -54,21 +54,39 @@ const addPost = asyncHandler(async (req, res) => {
   res.json("adding");
 });
 
+// %desc Get post by url param
+// route DELETE /api/posts/?
+// @access Public
 const deletePost = asyncHandler(async (req, res) => {
   const { access_token } = req.cookies;
-  console.log(access_token);
-  // if (!access_token) {
-  //   res.status(401);
-  //   throw new Error("Not authenticated!");
-  // }
 
-  // const postId = req.params.id;
+  const postId = req.params.id;
 
-  // const j = jwt.verify(access_token, "jwtkey", (err, userInfo) => {
-  //   return userInfo;
-  // });
+  const post = await prisma.post.findUnique({
+    where: {
+      id: parseInt(postId),
+    },
+  });
 
-  return res.json({ data: "hello" });
+  if (!post) {
+    res.status(404);
+    throw new Error("Post not found!");
+  }
+
+  const token = jwt.decode(access_token, "jwtkey");
+
+  if (token.id !== post.authorId) {
+    res.status(403);
+    throw new Error("You can only delete your posts!");
+  }
+
+  const deletePost = await prisma.post.delete({
+    where: {
+      id: parseInt(postId),
+    },
+  });
+
+  return res.status(200).json(deletePost);
 });
 
 const updatePost = asyncHandler(async (req, res) => {
